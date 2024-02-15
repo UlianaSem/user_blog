@@ -1,6 +1,6 @@
 from rest_framework import generics
 
-from blog import models, permissions
+from blog import models, permissions, paginators
 from blog import serializers
 
 
@@ -20,6 +20,21 @@ class PostDestroyAPIView(generics.DestroyAPIView):
     queryset = models.Post.objects.all()
     serializer_class = serializers.PostCreateSerializer
     permission_classes = [permissions.IsBlogOwner]
+
+
+class PostListAPIView(generics.ListAPIView):
+    """Эндпоинт ленты новостей"""
+    queryset = models.Post.objects.all()
+    serializer_class = serializers.PostSerializer
+    pagination_class = paginators.PostsPaginator
+
+    def get_queryset(self):
+        blogs = models.Subscription.objects.values('blog').filter(user=self.request.user)
+
+        queryset = super().get_queryset().order_by('-created_at')[:500]
+        queryset = queryset.filter(blog__in=blogs)
+
+        return queryset
 
 
 class SubscriptionCreateAPIView(generics.CreateAPIView):
@@ -56,3 +71,4 @@ class PostUserDestroyAPIView(generics.DestroyAPIView):
     queryset = models.PostUser.objects.all()
     serializer_class = serializers.PostUserCreateSerializer
     permission_classes = [permissions.IsOwner]
+

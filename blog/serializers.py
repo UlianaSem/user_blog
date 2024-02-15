@@ -14,6 +14,13 @@ class PostCreateSerializer(serializers.ModelSerializer):
         ]
 
 
+class PostSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Post
+        fields = "__all__"
+
+
 class SubscriptionCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
