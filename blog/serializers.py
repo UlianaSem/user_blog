@@ -21,3 +21,12 @@ class SubscriptionCreateSerializer(serializers.ModelSerializer):
         fields = [
             'blog'
         ]
+
+
+class PostUserCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Subscription
+        fields = [
+            'post'
+        ]

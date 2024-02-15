@@ -88,3 +88,30 @@ class Subscription(models.Model):
                 fields=('user', 'blog',),
                 name='Unique user and blog', ),
         ]
+
+
+class PostUser(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name='пользователь',
+        related_name='read_posts'
+    )
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        verbose_name='пост',
+        related_name='read_posts'
+    )
+
+    def __str__(self):
+        return f'User {self.user.email} read {self.post}'
+
+    class Meta:
+        verbose_name = 'прочитанные посты'
+        verbose_name_plural = 'прочитанные посты'
+        constraints = [
+            UniqueConstraint(
+                fields=('user', 'post',),
+                name='Unique user and post', ),
+        ]

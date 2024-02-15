@@ -12,4 +12,6 @@ urlpatterns = [
     path('delete_post/', views.PostDestroyAPIView.as_view(), name='delete_post'),
     path('follow/', views.SubscriptionCreateAPIView.as_view(), name='follow'),
     path('unfollow/', views.SubscriptionDestroyAPIView.as_view(), name='unfollow'),
+    path('mark_read_post/', views.PostUserCreateAPIView.as_view(), name='mark_read_post'),
+    path('mark_unread_post/', views.PostUserDestroyAPIView.as_view(), name='mark_unread_post'),
 ]
