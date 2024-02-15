@@ -38,7 +38,8 @@ class Post(models.Model):
         Blog,
         on_delete=models.CASCADE,
         verbose_name='блог',
-        related_name='posts'
+        related_name='posts',
+        null=True
     )
     title = models.CharField(
         max_length=100,
@@ -68,7 +69,8 @@ class Subscription(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         verbose_name='пользователь',
-        related_name='subscriptions'
+        related_name='subscriptions',
+        null=True
     )
     blog = models.ForeignKey(
         Blog,
@@ -95,7 +97,8 @@ class PostUser(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         verbose_name='пользователь',
-        related_name='read_posts'
+        related_name='read_posts',
+        null=True
     )
     post = models.ForeignKey(
         Post,
