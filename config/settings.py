@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_simplejwt',
+    'django_celery_beat',
 
     'users',
     'blog',
@@ -145,3 +146,13 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+CELERY_BROKER_URL = f"redis://{os.getenv('REDIS_HOST')}:6379"
+
+CELERY_RESULT_BACKEND = f"redis://{os.getenv('REDIS_HOST')}:6379"
+
+CELERY_TIMEZONE = "UTC"
+
+CELERY_TASK_TRACK_STARTED = True
+
+CELERY_TASK_TIME_LIMIT = 30 * 60
