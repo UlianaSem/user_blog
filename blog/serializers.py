@@ -22,18 +22,38 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class SubscriptionCreateSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
 
     class Meta:
         model = models.Subscription
         fields = [
-            'blog'
+            'blog',
+            'user'
+        ]
+        validators = [
+            serializers.UniqueTogetherValidator(
+                models.Subscription.objects.all(),
+                ['user', 'blog'],
+                'Вы уже подписаны на этот блог')
         ]
 
 
 class PostUserCreateSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
 
     class Meta:
-        model = models.Subscription
+        model = models.PostUser
         fields = [
             'post'
+            'user'
+        ]
+        validators = [
+            serializers.UniqueTogetherValidator(
+                models.PostUser.objects.all(),
+                ['user', 'post'],
+                'Вы уже отметили на этот пост прочитанным')
         ]
