@@ -52,7 +52,7 @@ class PostListAPIView(generics.ListAPIView):
     pagination_class = paginators.PostsPaginator
 
     def get_queryset(self):
-        blogs_id = [blog.id for blog in self.request.user.subscriptions.all()]
+        blogs_id = [subscription.blog.id for subscription in self.request.user.subscriptions.all()]
 
         queryset = super().get_queryset()
         queryset = queryset.filter(blog__in=blogs_id).order_by('-created_at')[:500]

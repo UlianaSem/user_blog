@@ -11,7 +11,7 @@ def send_updated_news_feed():
     users = users_models.User.objects.filter(is_active=True).filter(is_staff=False)
 
     for user in users:
-        blogs_id = [blog.id for blog in user.subscriptions.all()]
+        blogs_id = [subscription.blog.id for subscription in user.subscriptions.all()]
         posts = models.Post.objects.filter(blog__in=blogs_id).order_by('-created_at')[:5]
 
         if posts:
