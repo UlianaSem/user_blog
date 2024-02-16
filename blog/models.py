@@ -15,7 +15,7 @@ class Blog(models.Model):
     )
 
     def __str__(self):
-        return f'Blog of {self.user.email} user'
+        return f'Blog of {self.user} user'
 
     class Meta:
         verbose_name = 'блог'
@@ -80,7 +80,7 @@ class Subscription(models.Model):
     )
 
     def __str__(self):
-        return f'User {self.user.email} subscribed to {self.blog}'
+        return f'User {self.user} subscribed to {self.blog}'
 
     class Meta:
         verbose_name = 'подписка'
@@ -108,7 +108,7 @@ class PostUser(models.Model):
     )
 
     def __str__(self):
-        return f'User {self.user.email} read {self.post}'
+        return f'User {self.user} read {self.post}'
 
     class Meta:
         verbose_name = 'прочитанные посты'

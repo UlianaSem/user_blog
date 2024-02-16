@@ -4,17 +4,9 @@ from rest_framework import generics
 from blog import models, permissions, paginators
 from blog import serializers
 
-parameter = utils.OpenApiParameter(
-    name='Authorization',
-    location=utils.OpenApiParameter.HEADER,
-    description='Токен авторизации в формате Bearer <token>',
-    required=True,
-    type=str)
-
 
 @utils.extend_schema(
     tags=["Посты"],
-    parameters=[parameter],
     summary="Создать пост",
 )
 class PostCreateAPIView(generics.CreateAPIView):
@@ -30,7 +22,6 @@ class PostCreateAPIView(generics.CreateAPIView):
 
 @utils.extend_schema(
     tags=["Посты"],
-    parameters=[parameter],
     summary="Удалить пост",
 )
 class PostDestroyAPIView(generics.DestroyAPIView):
@@ -42,7 +33,6 @@ class PostDestroyAPIView(generics.DestroyAPIView):
 
 @utils.extend_schema(
     tags=["Лента"],
-    parameters=[parameter],
     summary="Получить ленту новостей",
 )
 class PostListAPIView(generics.ListAPIView):
@@ -62,7 +52,6 @@ class PostListAPIView(generics.ListAPIView):
 
 @utils.extend_schema(
     tags=["Подписки"],
-    parameters=[parameter],
     summary="Создать подписку",
 )
 class SubscriptionCreateAPIView(generics.CreateAPIView):
@@ -78,7 +67,6 @@ class SubscriptionCreateAPIView(generics.CreateAPIView):
 
 @utils.extend_schema(
     tags=["Подписки"],
-    parameters=[parameter],
     summary="Удалить подписку",
 )
 class SubscriptionDestroyAPIView(generics.DestroyAPIView):
@@ -90,7 +78,6 @@ class SubscriptionDestroyAPIView(generics.DestroyAPIView):
 
 @utils.extend_schema(
     tags=["Посты"],
-    parameters=[parameter],
     summary="Отметить пост прочитанным",
 )
 class PostUserCreateAPIView(generics.CreateAPIView):
@@ -106,7 +93,6 @@ class PostUserCreateAPIView(generics.CreateAPIView):
 
 @utils.extend_schema(
     tags=["Посты"],
-    parameters=[parameter],
     summary="Удалить отметку о прочтении поста",
 )
 class PostUserDestroyAPIView(generics.DestroyAPIView):
