@@ -29,10 +29,10 @@ class PostListAPIView(generics.ListAPIView):
     pagination_class = paginators.PostsPaginator
 
     def get_queryset(self):
-        blogs = models.Subscription.objects.values('blog').filter(user=self.request.user)
+        blogs_id = [blog.id for blog in self.request.user.subscriptions.all()]
 
-        queryset = super().get_queryset().order_by('-created_at')[:500]
-        queryset = queryset.filter(blog__in=blogs)
+        queryset = super().get_queryset()
+        queryset = queryset.filter(blog__in=blogs_id).order_by('-created_at')[:500]
 
         return queryset
 
@@ -71,4 +71,3 @@ class PostUserDestroyAPIView(generics.DestroyAPIView):
     queryset = models.PostUser.objects.all()
     serializer_class = serializers.PostUserCreateSerializer
     permission_classes = [permissions.IsOwner]
-

@@ -48,7 +48,7 @@ class PostUserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.PostUser
         fields = [
-            'post'
+            'post',
             'user'
         ]
         validators = [
