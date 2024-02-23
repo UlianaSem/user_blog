@@ -1,4 +1,4 @@
-# Atomic habits project
+# User blog
 
 ## Описание проекта
 
